@@ -193,17 +193,30 @@ final class AIModeController: ObservableObject {
         }
     }
 
+    /// Battery level seen on the previous check while AI mode was on and on battery.
+    private var lastBatteryPercent: Int?
+
     private func checkBatteryFloor() {
-        guard isOn, !isBusy, batteryFloor > 0, let battery, !battery.onACPower,
-              battery.percent <= batteryFloor
-        else { return }
+        guard isOn, batteryFloor > 0, let battery, !battery.onACPower else {
+            lastBatteryPercent = nil
+            return
+        }
+        let previous = lastBatteryPercent
+        lastBatteryPercent = battery.percent
+        // Fire only when the level drops through the floor. If the user turned AI mode on
+        // while already below it, that was deliberate: leave it on.
+        guard !isBusy, let previous, previous > batteryFloor, battery.percent <= batteryFloor else { return }
         // No prompt here: nobody may be at the Mac. Works only with the no-password rule.
         isBusy = true
+        let percent = battery.percent
         Task.detached(priority: .userInitiated) {
             _ = SleepControl.setSleepDisabled(false, allowPrompt: false)
             await MainActor.run {
                 self.isBusy = false
                 self.isOn = SystemPower.isSleepDisabled
+                if !self.isOn {
+                    self.lastError = String(localized: "Turned off: battery at \(percent)%.")
+                }
             }
         }
     }

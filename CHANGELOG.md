@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.2 · 2026-11-21
+
+- Battery cut-off fires only when the battery drops through the chosen level. Turning AI mode on by hand while already below it now keeps it on, instead of switching it off again a second later.
+- When the cut-off turns AI mode off, the AI mode card says so and shows the battery level.
+
 ## 0.2.1 · 2026-11-21
 
 - Build copies are kept out of Spotlight, so searching for Lidless shows only the installed app.

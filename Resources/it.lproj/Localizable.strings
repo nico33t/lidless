@@ -66,3 +66,4 @@
 "Close the lid. Your AI agents keep working." = "Chiudi lo schermo. I tuoi agenti AI continuano a lavorare.";
 "Cleaning" = "Pulizia";
 "Lid at %lld°" = "Schermo a %lld°";
+"Turned off: battery at %lld%%." = "Spenta: batteria al %lld%%.";
