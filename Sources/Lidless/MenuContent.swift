@@ -4,7 +4,7 @@ import SwiftUI
 struct MenuContent: View {
     @ObservedObject var ai: AIModeController
     @ObservedObject var cleaning: CleaningController
-    @Environment(\.openSettings) private var openSettings
+    let openSettings: () -> Void
     @AppStorage("cleaningSeconds") private var cleaningSeconds = 120
 
     var body: some View {
@@ -20,10 +20,7 @@ struct MenuContent: View {
             Divider().padding(.horizontal, 12)
 
             HStack {
-                Button("Settings…") {
-                    NSApp.activate(ignoringOtherApps: true)
-                    openSettings()
-                }
+                Button("Settings…") { openSettings() }
                 .keyboardShortcut(",")
                 Spacer()
                 Button("Quit Lidless") { NSApp.terminate(nil) }

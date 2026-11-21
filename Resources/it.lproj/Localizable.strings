@@ -57,3 +57,9 @@
 "Allow in System Settings…" = "Consenti nelle Impostazioni di Sistema…";
 "Without Accessibility, brightness and media keys still respond during cleaning." = "Senza Accessibilità, luminosità e tasti multimediali rispondono anche durante la pulizia.";
 "Open at login" = "Apri al login";
+
+/* Main window */
+"Start" = "Avvia";
+"General" = "Generali";
+"Show this window when Lidless opens" = "Mostra questa finestra all'apertura di Lidless";
+"Lidless also lives in the menu bar. If you have many menu bar icons, it may be hidden behind the camera notch: open Lidless again from Applications to bring this window back." = "Lidless è anche nella barra dei menu. Se hai molte icone potrebbe finire nascosta dietro il notch della fotocamera: riapri Lidless da Applicazioni per far tornare questa finestra.";

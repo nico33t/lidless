@@ -27,7 +27,10 @@ if [[ -z "${SIGN_IDENTITY:-}" ]]; then
   [[ -z "$SIGN_IDENTITY" ]] && SIGN_IDENTITY="-"
 fi
 
-codesign --force --options runtime --timestamp=none --entitlements Resources/Lidless.entitlements \
+# Notarization needs a secure timestamp; local builds skip it to work offline.
+TIMESTAMP="--timestamp=none"
+[[ "$SIGN_IDENTITY" == Developer\ ID* ]] && TIMESTAMP="--timestamp"
+codesign --force --options runtime "$TIMESTAMP" --entitlements Resources/Lidless.entitlements \
   --sign "$SIGN_IDENTITY" "$APP"
 codesign --verify --strict "$APP"
 echo "Built $APP ($VERSION, build $BUILD)"

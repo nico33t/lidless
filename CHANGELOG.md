@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.1 · 2026-11-21
+
+- Main window: opening Lidless shows a window with every control and setting, and the app appears in the Dock while it is open. Before, the only way in was the menu bar icon, which can hide behind the camera notch.
+- Opening Lidless again from Applications while it runs brings the window back.
+- New option: show the window when Lidless opens (on by default).
+- Release script for Developer ID signing and Apple notarization (`Scripts/notarize.sh`).
+
 ## 0.1.0 · 2026-11-21
 
 First version.

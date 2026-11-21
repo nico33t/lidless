@@ -3,12 +3,52 @@ import SwiftUI
 
 struct SettingsView: View {
     @ObservedObject var ai: AIModeController
+    @ObservedObject var cleaning: CleaningController
     @AppStorage("cleaningSeconds") private var cleaningSeconds = 120
+    @AppStorage("showWindowAtLaunch") private var showWindowAtLaunch = true
     @State private var launchAtLogin = Launcher.isEnabled
     @State private var accessibility = AXIsProcessTrusted()
 
     var body: some View {
         Form {
+            Section {
+                HStack(spacing: 14) {
+                    Image(systemName: ai.isOn ? "laptopcomputer.badge.checkmark" : "laptopcomputer")
+                        .font(.system(size: 26, weight: .regular))
+                        .foregroundStyle(ai.isOn ? Color.accentColor : Color.secondary)
+                        .frame(width: 44, height: 44)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("AI mode").font(.title3.weight(.semibold))
+                        Text(ai.isOn ? "Agents keep running with the lid closed" : "Your Mac sleeps normally")
+                            .foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                    if ai.isBusy {
+                        ProgressView().controlSize(.small)
+                    } else {
+                        Toggle("AI mode", isOn: Binding(get: { ai.isOn }, set: { ai.setOn($0) }))
+                            .toggleStyle(.switch)
+                            .controlSize(.large)
+                            .labelsHidden()
+                    }
+                }
+                .padding(.vertical, 4)
+                if let error = ai.lastError {
+                    Text(error).font(.callout).foregroundStyle(.orange)
+                }
+                HStack {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Clean screen and keyboard")
+                        Text("Locks input for \(cleaningSeconds / 60) min · ⌘ esc to exit")
+                            .font(.callout)
+                            .foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                    Button("Start") { cleaning.start(seconds: cleaningSeconds) }
+                        .controlSize(.large)
+                }
+            }
+
             Section {
                 Picker("Fade while lowering the lid", selection: Binding(
                     get: { ai.fadeWhen }, set: { ai.fadeWhen = $0 })) {
@@ -106,11 +146,15 @@ struct SettingsView: View {
             Section {
                 Toggle("Open at login", isOn: $launchAtLogin)
                     .onChange(of: launchAtLogin) { _, value in Launcher.set(value) }
+                Toggle("Show this window when Lidless opens", isOn: $showWindowAtLaunch)
+            } header: {
+                Text("General")
+            } footer: {
+                Text("Lidless also lives in the menu bar. If you have many menu bar icons, it may be hidden behind the camera notch: open Lidless again from Applications to bring this window back.")
             }
         }
         .formStyle(.grouped)
-        .frame(width: 480)
-        .fixedSize(horizontal: false, vertical: true)
+        .frame(minWidth: 460)
         .onReceive(Timer.publish(every: 2, on: .main, in: .common).autoconnect()) { _ in
             accessibility = AXIsProcessTrusted()
         }

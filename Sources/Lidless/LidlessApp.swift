@@ -8,22 +8,21 @@ struct LidlessApp: App {
 
     var body: some Scene {
         MenuBarExtra {
-            MenuContent(ai: appDelegate.ai, cleaning: appDelegate.cleaning)
+            MenuContent(ai: appDelegate.ai, cleaning: appDelegate.cleaning) {
+                appDelegate.showMainWindow()
+            }
         } label: {
             MenuBarIcon(ai: appDelegate.ai)
         }
         .menuBarExtraStyle(.window)
-
-        Settings {
-            SettingsView(ai: appDelegate.ai)
-        }
     }
 }
 
 @MainActor
-final class AppDelegate: NSObject, NSApplicationDelegate {
+final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     let ai = AIModeController()
     let cleaning = CleaningController()
+    private var mainWindow: NSWindow?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         ai.startMonitoring()
@@ -32,7 +31,44 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         if let index = args.firstIndex(of: "--clean-seconds"), index + 1 < args.count,
            let seconds = Int(args[index + 1]) {
             cleaning.start(seconds: seconds)
+            return
         }
+        // Menu bar icons can hide behind the notch, so the window is the reliable way in.
+        if UserDefaults.standard.object(forKey: "showWindowAtLaunch") as? Bool ?? true {
+            showMainWindow()
+        }
+    }
+
+    /// Double-clicking the app in Finder or Launchpad while it is running.
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        showMainWindow()
+        return false
+    }
+
+    func showMainWindow() {
+        if mainWindow == nil {
+            let window = NSWindow(
+                contentRect: NSRect(x: 0, y: 0, width: 500, height: 640),
+                styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
+                backing: .buffered, defer: false)
+            window.title = "Lidless"
+            window.titlebarAppearsTransparent = true
+            window.isReleasedWhenClosed = false
+            window.contentMinSize = NSSize(width: 460, height: 420)
+            window.contentView = NSHostingView(rootView: SettingsView(ai: ai, cleaning: cleaning))
+            window.setFrameAutosaveName("LidlessMain")
+            if !window.setFrameUsingName("LidlessMain") { window.center() }
+            window.delegate = self
+            mainWindow = window
+        }
+        NSApp.setActivationPolicy(.regular)
+        NSApp.activate(ignoringOtherApps: true)
+        mainWindow?.makeKeyAndOrderFront(nil)
+    }
+
+    func windowWillClose(_ notification: Notification) {
+        guard (notification.object as? NSWindow) === mainWindow else { return }
+        NSApp.setActivationPolicy(.accessory)
     }
 
     func applicationWillTerminate(_ notification: Notification) {

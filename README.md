@@ -51,7 +51,7 @@ only for cleaning, or use AI mode without any fading or muting.
 
 1. Download `Lidless-<version>.zip` from [Releases](https://github.com/nico33t/lidless/releases/latest) and unzip it.
 2. Move **Lidless.app** to **Applications**.
-3. Open it. It lives in the menu bar (laptop icon), not in the Dock.
+3. Open it. A window with every control appears. Lidless also lives in the menu bar (laptop icon); if you have many menu bar icons it can hide behind the camera notch, so just open Lidless again from Applications to get the window back.
 
 > **First launch.** Current builds are not yet notarized by Apple, so macOS may say it cannot
 > check the app. Right-click **Lidless.app** and choose **Open**, or go to
@@ -105,7 +105,7 @@ open build/Lidless.app
 ```
 
 The script signs with a Developer ID or Apple Development certificate if it finds one,
-otherwise ad hoc. To test cleaning mode quickly:
+otherwise ad hoc. `./Scripts/notarize.sh` signs with Developer ID, notarizes and staples a release zip (setup notes inside the script). To test cleaning mode quickly:
 
 ```sh
 build/Lidless.app/Contents/MacOS/Lidless --clean-seconds 10
