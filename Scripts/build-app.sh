@@ -14,6 +14,8 @@ swift build -c release --arch arm64 --arch x86_64
 BIN="$(swift build -c release --arch arm64 --arch x86_64 --show-bin-path)/Lidless"
 
 rm -rf "$APP"
+# Keep build copies out of Spotlight so they never show up next to the installed app.
+mkdir -p build && touch build/.metadata_never_index
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 cp "$BIN" "$APP/Contents/MacOS/Lidless"
 sed -e "s/__VERSION__/$VERSION/" -e "s/__BUILD__/$BUILD/" Resources/Info.plist > "$APP/Contents/Info.plist"

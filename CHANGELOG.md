@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1 · 2026-11-21
+
+- Build copies are kept out of Spotlight, so searching for Lidless shows only the installed app.
+
 ## 0.2.0 · 2026-11-21
 
 - Liquid Glass design on macOS 26 and later: the main window and the menu bar popover use glass cards, with a soft backdrop that lights up when AI mode is on. Earlier macOS versions get the translucent material look.
