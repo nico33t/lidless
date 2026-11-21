@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0 · 2026-11-21
+
+- Liquid Glass design on macOS 26 and later: the main window and the menu bar popover use glass cards, with a soft backdrop that lights up when AI mode is on. Earlier macOS versions get the translucent material look.
+- Main window redesigned: AI mode and Cleaning side by side at the top, options grouped below. The AI mode card also shows the battery and the live lid angle.
+- New app icon: a MacBook with its lid almost shut, light spilling from the gap, and an AI sparkle above.
+
 ## 0.1.2 · 2026-11-21
 
 - Restart, shutdown and logout no longer ask for the administrator password: AI mode stays as it is and is still on after the restart. "Restore normal sleep when quitting" now applies only when you quit Lidless yourself.

@@ -45,6 +45,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         if UserDefaults.standard.object(forKey: "showWindowAtLaunch") as? Bool ?? true {
             showMainWindow()
         }
+        // `--snapshot <file.png>` saves an image of the main window (for docs and layout checks).
+        if let index = args.firstIndex(of: "--snapshot"), index + 1 < args.count {
+            let path = args[index + 1]
+            showMainWindow()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
+                guard let view = self?.mainWindow?.contentView?.superview,
+                      let rep = view.bitmapImageRepForCachingDisplay(in: view.bounds) else { return }
+                view.cacheDisplay(in: view.bounds, to: rep)
+                try? rep.representation(using: .png, properties: [:])?.write(to: URL(fileURLWithPath: path))
+            }
+        }
     }
 
     /// Double-clicking the app in Finder or Launchpad while it is running.
@@ -56,13 +67,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     func showMainWindow() {
         if mainWindow == nil {
             let window = NSWindow(
-                contentRect: NSRect(x: 0, y: 0, width: 500, height: 640),
+                contentRect: NSRect(x: 0, y: 0, width: 580, height: 720),
                 styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
                 backing: .buffered, defer: false)
             window.title = "Lidless"
             window.titlebarAppearsTransparent = true
             window.isReleasedWhenClosed = false
-            window.contentMinSize = NSSize(width: 460, height: 420)
+            window.contentMinSize = NSSize(width: 540, height: 420)
             window.contentView = NSHostingView(rootView: SettingsView(ai: ai, cleaning: cleaning))
             window.setFrameAutosaveName("LidlessMain")
             if !window.setFrameUsingName("LidlessMain") { window.center() }

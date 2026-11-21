@@ -1,4 +1,6 @@
-# Lidless
+<p align="center"><img src="docs/icon.png" width="160" alt="Lidless icon"></p>
+
+<h1 align="center">Lidless</h1>
 
 **Close the lid. Your AI agents keep working.**
 
@@ -7,7 +9,7 @@ Close your MacBook and long-running agents, builds and terminals keep going, whi
 screen goes dark and the speakers go quiet. It also has a cleaning mode that locks the
 keyboard and trackpad so you can wipe them down.
 
-Written in Swift and SwiftUI. No Electron, no background services, no network access.
+Written in Swift and SwiftUI, with Liquid Glass on macOS 26 and later. No Electron, no background services, no network access.
 
 [**Download the latest version**](https://github.com/nico33t/lidless/releases/latest) · macOS 14 Sonoma or later · Apple Silicon and Intel
 
