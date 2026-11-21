@@ -1,0 +1,59 @@
+/* Menu */
+"AI mode" = "Modalità AI";
+"Agents keep running with the lid closed" = "Gli agenti continuano a schermo chiuso";
+"Your Mac sleeps normally" = "Il Mac va in stop come sempre";
+"Lid closed, screen off, sound muted" = "Schermo chiuso, display spento, audio muto";
+"Close the lid: screen goes dark, sound mutes" = "Chiudi lo schermo: display spento, audio muto";
+"Charging, %lld%%" = "In carica, %lld%%";
+"On battery, %lld%%" = "A batteria, %lld%%";
+"The change was cancelled or not allowed." = "Modifica annullata o non consentita.";
+"Clean screen and keyboard" = "Pulisci schermo e tastiera";
+"Locks input for %lld min · ⌘ esc to exit" = "Blocca l'input per %lld min · ⌘ esc per uscire";
+"Settings…" = "Impostazioni…";
+"Quit Lidless" = "Esci da Lidless";
+"Lidless, AI mode on" = "Lidless, modalità AI attiva";
+
+/* Cleaning */
+"Press" = "Premi";
+"to exit" = "per uscire";
+"Keyboard, trackpad and mouse are locked. Wipe away." = "Tastiera, trackpad e mouse sono bloccati. Pulisci pure.";
+"Brightness and media keys still respond. Allow Accessibility in Settings for a full lock." = "Luminosità e tasti multimediali rispondono ancora. Consenti Accessibilità nelle Impostazioni per il blocco completo.";
+
+/* Password prompts */
+"Lidless wants to keep your Mac awake with the lid closed." = "Lidless vuole tenere il Mac acceso a schermo chiuso.";
+"Lidless wants to restore normal sleep." = "Lidless vuole ripristinare lo stop normale.";
+"Lidless wants to switch AI mode without asking for your password each time." = "Lidless vuole attivare la modalità AI senza chiederti ogni volta la password.";
+"Lidless wants to remove its no-password rule." = "Lidless vuole rimuovere la regola senza password.";
+
+/* Settings */
+"Lowering the lid" = "Abbassando lo schermo";
+"Fade while lowering the lid" = "Sfuma mentre abbassi lo schermo";
+"Never" = "Mai";
+"Only in AI mode" = "Solo in modalità AI";
+"Always" = "Sempre";
+"Dim brightness" = "Abbassa la luminosità";
+"Lower volume" = "Abbassa il volume";
+"Start at" = "Inizia da";
+"Lowest level" = "Livello minimo";
+"Lid angle now" = "Angolo attuale";
+"This Mac has no lid angle sensor, so fading is not available." = "Questo Mac non ha il sensore d'angolo dello schermo: la sfumatura non è disponibile.";
+"Brightness and volume follow the lid down from the start angle, and come back when you lift it." = "Luminosità e volume scendono insieme allo schermo dall'angolo scelto e tornano quando lo rialzi.";
+"Mute sound when the lid is closed" = "Audio muto a schermo chiuso";
+"Turn the screen off when the lid is closed" = "Display spento a schermo chiuso";
+"Turn off on battery at" = "Disattiva a batteria al";
+"Restore normal sleep when quitting" = "Ripristina lo stop normale all'uscita";
+"With an external display connected, Lidless leaves sound and screen alone. The battery cut-off works only when switching without a password is on." = "Con un monitor esterno collegato Lidless non tocca audio e display. Lo spegnimento per batteria funziona solo con l'attivazione senza password.";
+"Password" = "Password";
+"Switch without asking for a password" = "Attiva senza chiedere la password";
+"Adds a rule to /etc/sudoers.d/lidless that allows only “pmset -a disablesleep 0” and “pmset -a disablesleep 1” for your user. Turn it off to remove the file." = "Aggiunge una regola in /etc/sudoers.d/lidless che consente solo «pmset -a disablesleep 0» e «pmset -a disablesleep 1» al tuo utente. Spegnila per rimuovere il file.";
+"Cleaning mode" = "Modalità pulizia";
+"Duration" = "Durata";
+"30 seconds" = "30 secondi";
+"1 minute" = "1 minuto";
+"2 minutes" = "2 minuti";
+"3 minutes" = "3 minuti";
+"Full input lock" = "Blocco input completo";
+"Allowed" = "Consentito";
+"Allow in System Settings…" = "Consenti nelle Impostazioni di Sistema…";
+"Without Accessibility, brightness and media keys still respond during cleaning." = "Senza Accessibilità, luminosità e tasti multimediali rispondono anche durante la pulizia.";
+"Open at login" = "Apri al login";

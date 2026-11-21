@@ -1,0 +1,14 @@
+# Changelog
+
+## 0.1.0 · 2026-11-21
+
+First version.
+
+- AI mode: one switch keeps the Mac awake with the lid closed (`pmset -a disablesleep`), so AI agents keep running. The switch always shows the real system state.
+- Lid closed in AI mode: screen off and sound muted, both restored when the lid opens. Skipped when an external display is connected.
+- Fade while lowering the lid: brightness and volume follow the lid angle down and come back when it is lifted. Never, only in AI mode, or always; start angle and lowest level adjustable.
+- Cleaning mode: black screens, keyboard, trackpad and mouse locked, countdown, ⌘ esc to leave early. Full lock with the Accessibility permission, lighter lock without it.
+- Optional switching without a password: a sudoers rule limited to the two pmset commands, removable from Settings.
+- Battery cut-off: AI mode turns itself off below a chosen battery level (needs switching without a password).
+- Normal sleep restored on quit, optional.
+- English and Italian.
