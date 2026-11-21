@@ -24,8 +24,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     let cleaning = CleaningController()
     private var mainWindow: NSWindow?
 
+    /// Set when macOS is logging out, restarting or shutting down.
+    private var systemIsPoweringOff = false
+
     func applicationDidFinishLaunching(_ notification: Notification) {
         ai.startMonitoring()
+        NSWorkspace.shared.notificationCenter.addObserver(
+            forName: NSWorkspace.willPowerOffNotification, object: nil, queue: .main
+        ) { [weak self] _ in
+            MainActor.assumeIsolated { self?.systemIsPoweringOff = true }
+        }
         // `--clean-seconds N` starts cleaning mode straight away (used for quick tests).
         let args = CommandLine.arguments
         if let index = args.firstIndex(of: "--clean-seconds"), index + 1 < args.count,
@@ -73,7 +81,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     func applicationWillTerminate(_ notification: Notification) {
         cleaning.stop()
-        ai.restoreForQuit()
+        // On shutdown or logout a password prompt would hold up the system, and the
+        // setting is meant to survive a restart anyway: only restore on a real quit.
+        if systemIsPoweringOff {
+            ai.fader.restore()
+        } else {
+            ai.restoreForQuit()
+        }
     }
 }
 

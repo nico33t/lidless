@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2 · 2026-11-21
+
+- Restart, shutdown and logout no longer ask for the administrator password: AI mode stays as it is and is still on after the restart. "Restore normal sleep when quitting" now applies only when you quit Lidless yourself.
+
 ## 0.1.1 · 2026-11-21
 
 - Main window: opening Lidless shows a window with every control and setting, and the app appears in the Dock while it is open. Before, the only way in was the menu bar icon, which can hide behind the camera notch.
